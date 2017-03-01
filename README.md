@@ -5,23 +5,29 @@
 - How much data?
   - Just enough
     - Convert the data to [GeoJSON](http://geojson.org/) & make a simple [Leaflet](http://leafletjs.com/) map
+  - Just enough and I want to print it out 
+    - [Print Maps](https://github.com/mpetroff/print-maps)
   - Too much in a confusing way, but each points data is important?
     - Cluster your points with [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster)
   - Too much and the points have some value that can be aggregated
     - Create hexbins of your points with the [QGIS hexbin](https://www.mapbox.com/blog/binning-alternative-point-maps/) plugin, to make
       polygons. Start again at Polygons
+
   - Too much and the points just represent presence - like tweets
     - Create a heatmap with [Leaflet.heat](https://github.com/Leaflet/Leaflet.heat) or [QGIS heatmap](http://qgis.spatialthoughts.com/2012/07/tutorial-making-heatmaps-using-qgis-and.html) plugin. If you
       use QGIS heatmap, start again at Raster.
   - Tons of data, and you don't need labels? Use [tippecanoe](https://github.com/mapbox/tippecanoe).
+  - Tons of data, I need it as print. Use [qgis](http://qgis.org)
 
 ## Polygons
 
 - How much data?
-  - Just enough
+  - Just enough 
     - Convert the data to [GeoJSON](http://geojson.org/) & make a simple Leaflet map
+  - Too much data and there's a lot of data columns
+    - Create Your own vector tiles
+     [MapBox](https://mapbox.com)
   - Too much, the polygons have necessary detail
-    - Use [TileMill](https://www.mapbox.com/tilemill/) to render an interactive map with [UTFGrid](https://www.mapbox.com/developers/utfgrid/)
     - Use [GeoServer](http://geoserver.org/) with WMS layers and GetFeatureInfo
   - Too much, the polygons have unnecessary details
     - Simplify them with [TopoJSON](https://github.com/mbostock/topojson) or [QGIS](http://www.qgis.org/)
@@ -34,8 +40,7 @@
     - Normalize absolutes to rates by dividing over polygon area,
       and start from Rates
   - Rates or Categories
-    - Make a choropleth map with [Leaflet](http://leafletjs.com/) for small data, [TileMill](https://www.mapbox.com/tilemill/)
-      for big data
+    - Make a choropleth map with [Leaflet](http://leafletjs.com/) for small data, Upload to [Carto](https://carto.com) for big data
   - Temporal data - values over time
     - If there are fewer than 100 samples - like 50 years of data grouped by year, make [small multiples](http://www.nytimes.com/interactive/2012/07/20/us/drought-footprint.html): a map per sample.
     - If you can code, make an animation with [Leaflet](http://leafletjs.com/) or [d3.js](http://d3js.org/)
@@ -84,7 +89,7 @@
 ## A format that I can't read
 
 - Install [GDAL](http://www.gdal.org/) and use ogr2ogr to convert the file. If you can't install
-  this, you can use it online with [Ogre](http://ogre.adc4gis.com/)
+  this, you can use it online with [Ogre](http://ogre.adc4gis.com/) or if it's a small file, open it in [geojson.io](geojson.io) and then save it in your preferred format.
 - Commercial tools:
   - [SAFE FME](http://www.safe.com/)
 - Ask your source for a better file format
@@ -95,7 +100,7 @@
   - Drawbacks: downloads are very large and require specialized tools to process
 - I want raw data for subsets of the world: [Geofabrik extracts](http://www.geofabrik.de/data/download.html) or [Mapzen metro extracts](https://mapzen.com/data/metro-extracts/)
   - Drawbacks: only includes predefined areas, not as up-to-date as Planet.osm
-- I want data useful for **fast basemaps**, already processed into vector tiles: [Mapbox](https://mapbox.com/)
+- I want data useful for **fast basemaps**, already processed into vector tiles to be styled: [Mapbox](https://mapbox.com/), [Mapzen](https://mapzen.com/projects/vector-tiles/), and [Openmaptiles](https://openmaptiles.org/) 
   - Drawbacks: doesn't include all features or all tags on features, only those appropriate for visualization
 - I want raw data as tiles, which include more data and complete tags: [OSM QA Tiles](http://osmlab.github.io/osm-qa-tiles/)
   - Drawbacks: much larger & slower than tiles designed for visualization
@@ -103,6 +108,8 @@
   - Drawbacks: can't return country-sized chunks of data, only smaller subsets
 - I want filtered, up-to-date extracts in extra formats like KMZ, Garmin Image, etc: [HOT Export Tool](http://export.hotosm.org/en/)
   - Drawbacks: can't do arbitrary regions
+- I want to be able to customize the base style of the map 
+  - , [Mapzen's Tangram Play](https://mapzen.com/tangram/play/), and [MapBox Studio](https://www.mapbox.com/studio/).
  
 
 ## I don't have data yet
